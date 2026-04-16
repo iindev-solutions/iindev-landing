@@ -39,10 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: 0.5 });
                 if (mode === 'normal') {
-                    ScrollTrigger.getAll().forEach(st => st.enable());
                     initNormalAnimations();
                 } else {
-                    ScrollTrigger.getAll().forEach(st => st.disable());
                     terminalOutput.innerHTML = '';
                     commandHistory = [];
                     historyIndex = -1;
@@ -116,77 +114,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ─── GSAP ANIMATIONS (NORMAL MODE) ───
+    // ─── ANIMATIONS (NORMAL MODE) ───
 
     let normalAnimationsInitialized = false;
 
     function initNormalAnimations() {
-        gsap.registerPlugin(ScrollTrigger);
-
-        if (normalAnimationsInitialized) {
-            ScrollTrigger.getAll().forEach(st => st.refresh());
-            gsap.fromTo('.hero-title', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' });
-            gsap.fromTo('.hero-subtitle', { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.2, ease: 'power2.out' });
-            return;
-        }
+        if (normalAnimationsInitialized) return;
         normalAnimationsInitialized = true;
 
-        gsap.from('.hero-title', {
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            ease: 'power2.out'
-        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
 
-        gsap.from('.hero-subtitle', {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            delay: 0.3,
-            ease: 'power2.out'
-        });
-
-        gsap.from('.service-card', {
-            y: 30,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.15,
-            ease: 'power2.out',
-            scrollTrigger: {
-                trigger: '#servicesSection',
-                start: 'top 80%'
-            }
-        });
-
-        gsap.from('.about-text', {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            scrollTrigger: {
-                trigger: '#aboutSection',
-                start: 'top 80%'
-            }
-        });
-
-        gsap.from('.about-col', {
-            y: 20,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.2,
-            scrollTrigger: {
-                trigger: '.about-columns',
-                start: 'top 80%'
-            }
-        });
-
-        gsap.from('.contacts-terminal', {
-            y: 20,
-            opacity: 0,
-            duration: 0.8,
-            scrollTrigger: {
-                trigger: '#contactsSection',
-                start: 'top 80%'
-            }
+        document.querySelectorAll('.service-card, .about-text, .about-col, .contacts-terminal').forEach((el, i) => {
+            if (i < 4) el.classList.add(`fade-in-delay-${i + 1}`);
+            observer.observe(el);
         });
     }
 

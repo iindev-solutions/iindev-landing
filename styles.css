@@ -7,7 +7,6 @@
 	--text-muted: #7d8d95;
 	--border-teal: #2a3a42;
 	--border-accent: rgba(160, 240, 226, 0.08);
-	--pattern-color: #1f2e36;
 	--error-red: #f07272;
 	--success-green: #90ee90;
 	--nav-height: 60px;
@@ -20,7 +19,6 @@
 }
 
 html {
-	scroll-behavior: smooth;
 	scrollbar-width: thin;
 	scrollbar-color: var(--border-teal) var(--bg-absolute);
 }
@@ -46,6 +44,8 @@ body {
 	letter-spacing: 0.02em;
 	color: var(--text-primary);
 	background-color: var(--bg-absolute);
+	background-image:
+		radial-gradient(circle at 50% 0%, rgba(160, 240, 226, 0.03) 0%, transparent 50%);
 	min-height: 100vh;
 	overflow-x: hidden;
 	min-width: 320px;
@@ -57,6 +57,19 @@ body {
 	color: var(--bg-absolute);
 }
 
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+.fade-in {
+	animation: fadeIn 0.5s ease both;
+}
+
+.fade-in-delay-1 { animation-delay: 0.1s; }
+.fade-in-delay-2 { animation-delay: 0.2s; }
+.fade-in-delay-3 { animation-delay: 0.3s; }
+
 :focus-visible {
 	outline: 2px solid var(--accent-cyan);
 	outline-offset: 2px;
@@ -64,32 +77,6 @@ body {
 
 .contact-value:focus-visible {
 	outline-offset: 0;
-}
-
-.background-pattern {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-	z-index: 0;
-	opacity: 0.08;
-	background-image:
-		repeating-linear-gradient(
-			45deg,
-			transparent,
-			transparent 40px,
-			var(--pattern-color) 40px,
-			var(--pattern-color) 41px
-		),
-		repeating-linear-gradient(
-			-45deg,
-			transparent,
-			transparent 40px,
-			var(--pattern-color) 40px,
-			var(--pattern-color) 41px
-		);
 }
 
 /* ─── MODE SWITCHING ─── */
@@ -213,6 +200,7 @@ body {
 	letter-spacing: -0.03em;
 	line-height: 1;
 	margin-bottom: 24px;
+	animation: fadeIn 1s ease both;
 }
 
 .hero-accent {
@@ -224,6 +212,7 @@ body {
 	font-weight: 350;
 	font-size: 18px;
 	margin-bottom: 12px;
+	animation: fadeIn 0.8s 0.3s ease both;
 }
 
 .section-title {
@@ -250,10 +239,7 @@ body {
 	position: relative;
 	overflow: hidden;
 	cursor: default;
-	transition:
-		transform 0.2s ease,
-		border-color 0.2s ease,
-		box-shadow 0.2s ease;
+	transition: border-color 0.2s ease;
 }
 
 .service-card::before {
@@ -273,9 +259,7 @@ body {
 }
 
 .service-card:hover {
-	transform: translateY(-2px);
 	border-color: rgba(160, 240, 226, 0.2);
-	box-shadow: 0 4px 20px rgba(160, 240, 226, 0.05);
 }
 
 .service-card-name {
@@ -333,6 +317,10 @@ body {
 	font-weight: 350;
 	font-size: 14px;
 	padding: 4px 0;
+}
+
+.about-col {
+	opacity: 0;
 }
 
 .contacts-section {

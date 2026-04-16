@@ -39,8 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.scrollTo({ top: 0, behavior: 'instant' });
                 gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: 0.5 });
                 if (mode === 'normal') {
+                    ScrollTrigger.getAll().forEach(st => st.enable());
                     initNormalAnimations();
                 } else {
+                    ScrollTrigger.getAll().forEach(st => st.disable());
                     terminalOutput.innerHTML = '';
                     commandHistory = [];
                     historyIndex = -1;
@@ -80,14 +82,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── WEATHER ───
 
+    let cachedWeather = null;
+
     async function fetchWeather() {
+        if (cachedWeather) return cachedWeather;
         try {
             const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=62.0355&longitude=129.6755&current_weather=true');
             const data = await response.json();
-            const temp = Math.round(data.current_weather.temperature);
-            return `${temp}°C`;
-        } catch (error) {
-            return '—71°C';
+            cachedWeather = `${Math.round(data.current_weather.temperature)}°C`;
+            return cachedWeather;
+        } catch {
+            cachedWeather = '—71°C';
+            return cachedWeather;
         }
     }
 
@@ -124,12 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         normalAnimationsInitialized = true;
-
-        let resizeTimer;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => ScrollTrigger.getAll().forEach(st => st.refresh()), 250);
-        });
 
         gsap.from('.hero-title', {
             y: 30,
@@ -210,13 +210,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let bootScrollLock = true;
+    let scrollRaf = false;
 
     function scrollToBottom() {
         if (bootScrollLock) return;
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
+        if (!scrollRaf) {
+            scrollRaf = true;
+            requestAnimationFrame(() => {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                scrollRaf = false;
+            });
+        }
     }
 
     async function typeCommand(command, speed = 50) {

@@ -74,21 +74,21 @@ body {
 	height: 100%;
 	pointer-events: none;
 	z-index: 0;
-	opacity: 0.16;
+	opacity: 0.08;
 	background-image:
 		repeating-linear-gradient(
 			45deg,
 			transparent,
-			transparent 20px,
-			var(--pattern-color) 20px,
-			var(--pattern-color) 21px
+			transparent 40px,
+			var(--pattern-color) 40px,
+			var(--pattern-color) 41px
 		),
 		repeating-linear-gradient(
 			-45deg,
 			transparent,
-			transparent 20px,
-			var(--pattern-color) 20px,
-			var(--pattern-color) 21px
+			transparent 40px,
+			var(--pattern-color) 40px,
+			var(--pattern-color) 41px
 		);
 }
 
@@ -128,9 +128,7 @@ body {
 	left: 0;
 	right: 0;
 	height: var(--nav-height);
-	background: rgba(10, 12, 14, 0.8);
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
+	background: rgba(10, 12, 14, 0.92);
 	border-bottom: 0.5px solid var(--border-accent);
 	z-index: 50;
 }
@@ -244,13 +242,11 @@ body {
 }
 
 .service-card {
-	background: var(--bg-surface);
+	background: rgba(16, 19, 22, 0.85);
 	border: 0.5px solid var(--border-accent);
 	border-radius: 8px;
 	padding: 24px;
 	min-height: 140px;
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
 	position: relative;
 	overflow: hidden;
 	cursor: default;
@@ -344,12 +340,10 @@ body {
 }
 
 .contacts-terminal {
-	background: var(--bg-surface);
+	background: rgba(16, 19, 22, 0.85);
 	border: 0.5px solid var(--border-accent);
 	border-radius: 8px;
 	padding: 24px;
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
 	max-width: 400px;
 }
 
@@ -638,8 +632,6 @@ body {
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.2s ease;
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
 }
 
 .service-modal.visible {

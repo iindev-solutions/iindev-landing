@@ -57,18 +57,11 @@ body {
 	color: var(--bg-absolute);
 }
 
-@keyframes fadeIn {
-	from { opacity: 0; }
-	to { opacity: 1; }
-}
+/* ─── ANIMATIONS ─── */
 
-.fade-in {
-	animation: fadeIn 0.5s ease both;
+.animate-element {
+	will-change: transform, opacity;
 }
-
-.fade-in-delay-1 { animation-delay: 0.1s; }
-.fade-in-delay-2 { animation-delay: 0.2s; }
-.fade-in-delay-3 { animation-delay: 0.3s; }
 
 :focus-visible {
 	outline: 2px solid var(--accent-cyan);
@@ -200,7 +193,6 @@ body {
 	letter-spacing: -0.03em;
 	line-height: 1;
 	margin-bottom: 24px;
-	animation: fadeIn 1s ease both;
 }
 
 .hero-accent {
@@ -212,7 +204,6 @@ body {
 	font-weight: 350;
 	font-size: 18px;
 	margin-bottom: 12px;
-	animation: fadeIn 0.8s 0.3s ease both;
 }
 
 .section-title {
@@ -320,7 +311,7 @@ body {
 }
 
 .about-col {
-	opacity: 0;
+	opacity: 1;
 }
 
 .contacts-section {

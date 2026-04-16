@@ -122,18 +122,74 @@ document.addEventListener('DOMContentLoaded', () => {
         if (normalAnimationsInitialized) return;
         normalAnimationsInitialized = true;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+        gsap.registerPlugin(ScrollTrigger);
 
-        document.querySelectorAll('.service-card, .about-text, .about-col, .contacts-terminal').forEach((el, i) => {
-            if (i < 4) el.classList.add(`fade-in-delay-${i + 1}`);
-            observer.observe(el);
+        // Hero animations
+        const heroTl = gsap.timeline();
+        heroTl.from('.hero-title', {
+            y: 40,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        })
+        .from('.hero-subtitle', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, '-=0.6');
+
+        // Services grid stagger
+        gsap.from('.service-card', {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.services-grid',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // About section
+        gsap.from('.about-text', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.about-text',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        gsap.from('.about-col', {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.about-columns',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
+        });
+
+        // Contacts
+        gsap.from('.contacts-terminal', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.contacts-terminal',
+                start: 'top 85%',
+                toggleActions: 'play none none none'
+            }
         });
     }
 

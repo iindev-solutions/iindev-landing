@@ -1,47 +1,84 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
     const terminalOutput = document.getElementById('terminalOutput');
     const terminalInput = document.getElementById('terminalInput');
     const inputDisplay = document.getElementById('inputDisplay');
-    const inputLine = document.getElementById('inputLine');
     const serviceModal = document.getElementById('serviceModal');
     const modalServiceName = document.getElementById('modalServiceName');
     const modalBody = document.getElementById('modalBody');
+    const normalContainer = document.getElementById('normalContainer');
+    const terminalContainer = document.getElementById('terminalContainer');
+    const modeToggle = document.getElementById('modeToggle');
+    const toggleNormal = document.getElementById('toggleNormal');
+    const toggleTerminal = document.getElementById('toggleTerminal');
+    const weatherBadge = document.getElementById('weatherBadge');
+    const copyToast = document.getElementById('copyToast');
 
     let commandHistory = [];
     let historyIndex = -1;
     let isAnimating = false;
+    let currentMode = localStorage.getItem('iindev-mode') || 'normal';
 
-    // Update display when input changes
-    terminalInput.addEventListener('input', () => {
-        inputDisplay.textContent = terminalInput.value;
-    });
+    body.className = `mode-${currentMode}`;
+
+    // ─── MODE TOGGLE ───
+
+    function switchMode(mode) {
+        if (mode === currentMode) return;
+
+        const outgoing = mode === 'normal' ? terminalContainer : normalContainer;
+        const incoming = mode === 'normal' ? normalContainer : terminalContainer;
+
+        gsap.to(outgoing, {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+                currentMode = mode;
+                body.className = `mode-${mode}`;
+                localStorage.setItem('iindev-mode', mode);
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+                if (mode === 'normal') {
+                    initNormalAnimations();
+                } else {
+                    terminalOutput.innerHTML = '';
+                    commandHistory = [];
+                    historyIndex = -1;
+                    bootSequence();
+                }
+            }
+        });
+    }
+
+    toggleNormal.addEventListener('click', () => switchMode('normal'));
+    toggleTerminal.addEventListener('click', () => switchMode('terminal'));
+
+    // ─── SERVICES DATA ───
 
     const serviceInfo = {
-        'taxi': {
-            name: 'taxi',
-            description: 'Taxi service optimized for Yakutsk conditions. Real-time routing, demand analysis, and cold-start algorithms for -50°C operations.'
+        'ayan': {
+            name: 'ayan',
+            subtitle: 'Бардыбыт · Такси',
+            description: 'Такси-сервис где пассажир предлагает цену, а водитель принимает. Без карт, без онлайн-оплаты — просто и быстро.'
         },
-        'booking': {
-            name: 'booking',
-            description: 'Smart booking system with automated scheduling, resource allocation, and analytics for seamless reservations.'
+        'uus': {
+            name: 'uus',
+            subtitle: 'Мастера',
+            description: 'Поиск мастеров на любую задачу — ремонт, монтаж, установка. Опишите задачу, мастера откликнутся.'
         },
-        'masters': {
-            name: 'masters',
-            description: 'Instant service matching platform. Connect with verified professionals in seconds. Optimized for local market.'
+        'aʃal': {
+            name: 'aʃal',
+            subtitle: 'Авиа-доставка',
+            description: 'Отправка посылок по всему миру через авиа. Найдите попутчика для вашей посылки.'
         },
-        'ai-business': {
-            name: 'ai-business',
-            description: 'Custom software solutions for business automation. Process optimization and intelligent decision support systems.'
-        },
-        'dev': {
-            name: 'dev',
-            description: 'Full-stack development services. 1C integrations, Bitrix solutions, custom websites. Built for Siberian infrastructure.'
-        },
-        'widgets': {
-            name: 'widgets',
-            description: 'Embeddable widgets for any platform. Lightweight, fast, and designed for extreme conditions. Plug-and-play integration.'
+        'tal': {
+            name: 'tal',
+            subtitle: 'Онлайн-бронирование',
+            description: 'Запись на услуги — салоны, клиники, мастерские. Бронируйте онлайн без звонков.'
         }
     };
+
+    // ─── WEATHER ───
 
     async function fetchWeather() {
         try {
@@ -54,6 +91,115 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Weather badge for normal mode
+    fetchWeather().then(temp => {
+        weatherBadge.textContent = `→ Yakutsk ${temp}`;
+    });
+
+    // ─── CLIPBOARD (NORMAL MODE) ───
+
+    document.querySelectorAll('.contact-value[data-copy]').forEach(el => {
+        el.addEventListener('click', async () => {
+            const text = el.dataset.copy;
+            try {
+                await navigator.clipboard.writeText(text);
+                copyToast.textContent = `copied: ${text}`;
+                copyToast.classList.add('show');
+                setTimeout(() => copyToast.classList.remove('show'), 2000);
+            } catch {}
+        });
+    });
+
+    // ─── GSAP ANIMATIONS (NORMAL MODE) ───
+
+    let normalAnimationsInitialized = false;
+
+    function initNormalAnimations() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        if (normalAnimationsInitialized) {
+            ScrollTrigger.getAll().forEach(st => st.refresh());
+            gsap.fromTo('.hero-title', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' });
+            gsap.fromTo('.hero-subtitle', { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.2, ease: 'power2.out' });
+            return;
+        }
+        normalAnimationsInitialized = true;
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => ScrollTrigger.getAll().forEach(st => st.refresh()), 250);
+        });
+
+        gsap.from('.hero-title', {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            ease: 'power2.out'
+        });
+
+        gsap.from('.hero-subtitle', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            delay: 0.3,
+            ease: 'power2.out'
+        });
+
+        gsap.from('.service-card', {
+            y: 30,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.15,
+            ease: 'power2.out',
+            scrollTrigger: {
+                trigger: '#servicesSection',
+                start: 'top 80%'
+            }
+        });
+
+        gsap.from('.about-text', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: '#aboutSection',
+                start: 'top 80%'
+            }
+        });
+
+        gsap.from('.about-col', {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: '.about-columns',
+                start: 'top 80%'
+            }
+        });
+
+        gsap.from('.contacts-terminal', {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            scrollTrigger: {
+                trigger: '#contactsSection',
+                start: 'top 80%'
+            }
+        });
+    }
+
+    if (currentMode === 'normal') {
+        initNormalAnimations();
+    }
+
+    // ─── TERMINAL MODE ───
+
+    terminalInput.addEventListener('input', () => {
+        inputDisplay.textContent = terminalInput.value;
+    });
+
     function addLine(content, className = '') {
         const line = document.createElement('div');
         line.className = `terminal-line ${className}`;
@@ -63,7 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return line;
     }
 
+    let bootScrollLock = true;
+
     function scrollToBottom() {
+        if (bootScrollLock) return;
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth'
@@ -73,16 +222,16 @@ document.addEventListener('DOMContentLoaded', () => {
     async function typeCommand(command, speed = 50) {
         isAnimating = true;
         terminalInput.disabled = true;
-        
+
         for (let i = 0; i < command.length; i++) {
             terminalInput.value += command[i];
             inputDisplay.textContent = terminalInput.value;
             await new Promise(r => setTimeout(r, speed));
         }
-        
+
         await new Promise(r => setTimeout(r, 300));
         await executeCommand(command, true);
-        
+
         terminalInput.value = '';
         inputDisplay.textContent = '';
         terminalInput.disabled = false;
@@ -96,7 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const args = parts.slice(1);
 
         if (!isAuto) {
-            addLine(`<span class="prompt">user@iindev:~$</span> <span class="command">${input}</span>`);
+            const escaped = input.replace(/[<>&"']/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
+            addLine(`<span class="prompt">user@iindev:~$</span> <span class="command">${escaped}</span>`);
             commandHistory.push(input);
             historyIndex = commandHistory.length;
         }
@@ -118,23 +268,22 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             'about': () => {
                 addLine(`<span class="brand-inline"><span style="color: #A0F0E2;">iind</span>ev.</span>`);
-                addLine(`<span class="output-muted">Development Studio — Yakutsk, Russia</span>`);
+                addLine(`<span class="output-muted">Development Studio</span>`);
                 addLine(``);
-                addLine(`<span class="output">We build software that works in extreme conditions.</span>`);
-                addLine(`<span class="output">From -71°C to 24/7 operations.</span>`);
+                addLine(`<span class="output">Строим сервисы, которые работают.</span>`);
+                addLine(`<span class="output">Простота, надёжность, скорость.</span>`);
                 addLine(``);
-                addLine(`<span class="output-muted">Specialization:</span>`);
-                addLine(`<span class="output">  • Web Development</span>`);
-                addLine(`<span class="output">  • AI Solutions</span>`);
-                addLine(`<span class="output">  • Business Automation</span>`);
-                addLine(`<span class="output">  • 1C/Bitrix Integration</span>`);
-                addLine(`<span class="output">  • Custom Software</span>`);
+                addLine(`<span class="output-muted">Services:</span>`);
+                addLine(`<span class="output">  • iind.ayan — Такси</span>`);
+                addLine(`<span class="output">  • iind.uus — Мастера</span>`);
+                addLine(`<span class="output">  • iind.aʃal — Авиа-доставка</span>`);
+                addLine(`<span class="output">  • iind.tal — Онлайн-бронирование</span>`);
             },
             'services': () => {
-                addLine(`<span class="output-muted">iindev@yakutsk:~/services$ ls -la</span>`);
+                addLine(`<span class="output-muted">iindev:~/services$ ls -la</span>`);
                 addLine(``);
                 Object.entries(serviceInfo).forEach(([key, info]) => {
-                    const line = addLine(`<span class="service-item" data-service="${key}"><span class="arrow">→</span> <span class="service-name">${key}/</span></span>`);
+                    const line = addLine(`<span class="service-item" data-service="${key}"><span class="arrow">→</span> <span class="service-name">${key}/</span> <span class="output-muted">${info.subtitle}</span></span>`);
                     line.querySelector('.service-item').addEventListener('click', () => {
                         openServiceModal(key);
                     });
@@ -153,11 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
             'contact': () => {
-                addLine(`<span class="output-muted">iindev@yakutsk:~/contact$ cat info.txt</span>`);
+                addLine(`<span class="output-muted">iindev:~/contact$ cat info.txt</span>`);
                 addLine(``);
-                const tgLine = addLine(`<span class="contact-item" data-copy="@iindev"><span class="contact-label">telegram:</span> <span class="contact-value">@iindev</span></span>`);
-                const emailLine = addLine(`<span class="contact-item" data-copy="iindev@tuta.io"><span class="contact-label">email:</span> <span class="contact-value">iindev@tuta.io</span></span>`);
-                
+                const tgLine = addLine(`<span class="contact-item" data-copy="@iindev"><span class="contact-label-terminal">telegram:</span> <span class="contact-value-terminal">@iindev</span></span>`);
+                const emailLine = addLine(`<span class="contact-item" data-copy="iindev@tuta.io"><span class="contact-label-terminal">email:</span> <span class="contact-value-terminal">iindev@tuta.io</span></span>`);
+
                 [tgLine, emailLine].forEach(line => {
                     const item = line.querySelector('.contact-item');
                     item.addEventListener('click', async () => {
@@ -257,48 +406,52 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Focus input on click anywhere
+    // Focus input on click (terminal mode only)
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.service-modal') && !isAnimating) {
+        if (currentMode === 'terminal' && !e.target.closest('.service-modal') && !isAnimating) {
             terminalInput.focus();
         }
     });
 
-    // Boot sequence
+    // Boot sequence (only if starting in terminal mode)
     async function bootSequence() {
+        window.scrollTo({ top: 0, behavior: 'instant' });
         await new Promise(r => setTimeout(r, 300));
-        
-        addLine(`<span class="output-muted">iindev@yakutsk:~$ ./boot --cold-start</span>`);
+
+        addLine(`<span class="output-muted">iindev:~$ ./boot --cold-start</span>`);
         await new Promise(r => setTimeout(r, 400));
-        
+
         const weatherLine = addLine(`<span class="output">→ YAKUTSK <span class="temp-loader"><span class="loader-dot"></span><span class="loader-dot"></span><span class="loader-dot"></span></span></span>`);
-        
+
         fetchWeather().then(temp => {
             weatherLine.innerHTML = `<span class="output">→ YAKUTSK ${temp}</span>`;
         });
-        
+
         await new Promise(r => setTimeout(r, 800));
         addLine(`<span class="output-success">→ system ready</span>`);
         addLine(``);
-        
+
         await new Promise(r => setTimeout(r, 400));
         await typeCommand('about', 40);
-        
+
         await new Promise(r => setTimeout(r, 600));
         addLine(``);
         await typeCommand('services', 40);
-        
+
         await new Promise(r => setTimeout(r, 600));
         addLine(``);
         await typeCommand('contact', 40);
-        
+
         await new Promise(r => setTimeout(r, 600));
         addLine(``);
         addLine(`<span class="output-muted">Type 'help' for available commands</span>`);
         addLine(``);
-        
+
+        bootScrollLock = false;
         terminalInput.focus();
     }
 
-    bootSequence();
+    if (currentMode === 'terminal') {
+        bootSequence();
+    }
 });

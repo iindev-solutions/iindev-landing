@@ -268,10 +268,10 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             'about': () => {
                 addLine(`<span class="brand-inline"><span style="color: #A0F0E2;">iind</span>ev.</span>`);
-                addLine(`<span class="output-muted">Development Studio</span>`);
+                addLine(`<span class="output-muted">Modern solutions. Simply.</span>`);
                 addLine(``);
-                addLine(`<span class="output">Строим сервисы, которые работают.</span>`);
-                addLine(`<span class="output">Простота, надёжность, скорость.</span>`);
+                addLine(`<span class="output">Делаем сложное простым.</span>`);
+                addLine(`<span class="output">Сайты, сервисы, платформы — от дизайна до запуска.</span>`);
                 addLine(``);
                 addLine(`<span class="output-muted">Services:</span>`);
                 addLine(`<span class="output">  • iind.ayan — Такси</span>`);

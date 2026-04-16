@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>frostbyte. — AI Ecosystem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0A0C0E;
+    --text: #EFF3F5;
+    --accent: #A0F0E2;
+    --dim: #3A3F45;
+    --mid: #6B7280;
+    --surface: #10131699;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(160, 240, 226, 0.008) 2px,
+      rgba(160, 240, 226, 0.008) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Sakha-inspired geometric pattern overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 9998;
+    background-image:
+      /* Diamond/rhombus pattern inspired by Sakha ornaments */
+      linear-gradient(45deg, var(--accent) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--accent) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--accent) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--accent) 75%);
+    background-size: 60px 60px;
+    background-position: 0 0, 0 30px, 30px -30px, 30px 0;
+  }
+
+  .wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    padding: 32px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+  }
+
+  .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+  .logo span { color: var(--accent); }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--mid);
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 4px var(--accent); }
+    50% { opacity: 0.4; box-shadow: 0 0 12px var(--accent); }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    padding: 80px 0 60px;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    font-size: 96px;
+    letter-spacing: -4px;
+    line-height: 1;
+    margin-bottom: 48px;
+    opacity: 0;
+  }
+  .hero-logo span { color: var(--accent); }
+
+  .terminal-block {
+    background: var(--surface);
+    border: 1px solid rgba(160, 240, 226, 0.08);
+    border-radius: 8px;
+    padding: 24px 28px;
+    position: relative;
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+  }
+  .terminal-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .terminal-header {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .terminal-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--dim);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .terminal-dot:first-child { background: #FF5F57; border-color: #E0443E; }
+  .terminal-dot:nth-child(2) { background: #FEBC2E; border-color: #DEA123; }
+  .terminal-dot:nth-child(3) { background: #28C840; border-color: #1AAB29; }
+
+  .prompt { color: var(--accent); }
+  .path { color: var(--mid); }
+  .command { color: var(--text); }
+  .flag { color: #7DD3FC; }
+  .output { color: var(--mid); }
+  .output-highlight { color: var(--text); }
+  .output-accent { color: var(--accent); }
+  .output-warn { color: #FEBC2E; }
+
+  .line {
+    min-height: 1.7em;
+    opacity: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .typed-text {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline;
+  }
+
+  /* ─── SECTION TITLES ─── */
+  .section-divider {
+    color: var(--dim);
+    margin: 80px 0 32px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+  }
+
+  /* ─── SERVICES ─── */
+  .services-block {
+    opacity: 0;
+  }
+  .services-terminal {
+    background: var(--surface);
+    border: 1px solid rgba(160, 240, 226, 0.08);
+    border-radius: 8px;
+    padding: 24px 28px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+  .services-terminal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .ls-header {
+    color: var(--mid);
+    font-size: 12px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    padding-bottom: 8px;
+  }
+
+  .service-row {
+    display: grid;
+    grid-template-columns: 90px 60px 60px 70px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .service-row:hover {
+    background: rgba(160, 240, 226, 0.03);
+  }
+  .service-row:last-child { border-bottom: none; }
+
+  .service-perms { color: var(--dim); font-size: 12px; }
+  .service-size { color: var(--mid); font-size: 12px; text-align: right; }
+  .service-date { color: var(--mid); font-size: 12px; }
+  .service-owner { color: var(--mid); font-size: 12px; }
+
+  .service-name {
+    color: var(--accent);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .service-name .dir-slash { color: var(--mid); }
+
+  .service-tag {
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+  .tag-active {
+    color: var(--accent);
+    border-color: rgba(160, 240, 226, 0.3);
+    background: rgba(160, 240, 226, 0.06);
+  }
+  .tag-beta {
+    color: #FEBC2E;
+    border-color: rgba(254, 188, 46, 0.3);
+    background: rgba(254, 188, 46, 0.06);
+  }
+  .tag-new {
+    color: #7DD3FC;
+    border-color: rgba(125, 211, 252, 0.3);
+    background: rgba(125, 211, 252, 0.06);
+  }
+
+  .service-arrow {
+    color: var(--dim);
+    transition: color 0.2s, transform 0.2s;
+  }
+  .service-row:hover .service-arrow {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  /* ─── METRICS ─── */
+  .metrics-block {
+    opacity: 0;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid rgba(160, 240, 226, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.2;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 12px;
+  }
+
+  .metric-value {
+    font-size: 36px;
+    font-weight: 300;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .metric-value span { color: var(--accent); font-size: 20px; }
+
+  .metric-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .metric-bar {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .metric-percent {
+    font-size: 12px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-block {
+    opacity: 0;
+  }
+  .about-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--mid);
+    max-width: 640px;
+  }
+  .about-text em {
+    color: var(--text);
+    font-style: normal;
+  }
+
+  /* ─── CONTACT ─── */
+  .contact-block {
+    opacity: 0;
+    margin-bottom: 120px;
+  }
+  .contact-terminal {
+    background: var(--surface);
+    border: 1px solid rgba(160, 240, 226, 0.08);
+    border-radius: 8px;
+    padding: 24px 28px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-terminal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .contact-line {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 4px 0;
+  }
+
+  .contact-link {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+  .contact-link:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .copy-toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--accent);
+    color: var(--bg);
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .copy-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 40px 0 60px;
+    color: var(--dim);
+    font-size: 12px;
+    letter-spacing: 2px;
+    opacity: 0;
+  }
+
+  /* ─── FROST PARTICLES ─── */
+  .frost-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── GLOW ─── */
+  .glow-orb {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(160,240,226,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    top: -200px;
+    right: -200px;
+    animation: drift 20s ease-in-out infinite;
+  }
+  .glow-orb-2 {
+    top: auto;
+    right: auto;
+    bottom: -300px;
+    left: -200px;
+    animation-delay: -10s;
+    opacity: 0.6;
+  }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-30px, 40px); }
+    66% { transform: translate(20px, -20px); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .hero-logo { font-size: 56px; letter-spacing: -2px; }
+    .metrics-grid { grid-template-columns: 1fr; }
+    .service-row {
+      grid-template-columns: 1fr auto;
+      gap: 4px;
+    }
+    .service-perms, .service-size, .service-date, .service-owner {
+      display: none;
+    }
+    .hero { padding: 40px 0 40px; min-height: auto; }
+    body { font-size: 13px; }
+    .terminal-block, .services-terminal, .contact-terminal, .metric-card {
+      padding: 16px 18px;
+    }
+    .metric-value { font-size: 28px; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-logo { font-size: 40px; letter-spacing: -1px; }
+    .wrapper { padding: 0 16px; }
+    nav { padding: 20px 0; }
+  }
+
+  /* Sakha accent border pattern */
+  .sakha-border {
+    height: 2px;
+    margin: 60px 0;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        var(--accent) 0px,
+        var(--accent) 4px,
+        transparent 4px,
+        transparent 8px,
+        var(--accent) 8px,
+        var(--accent) 16px,
+        transparent 16px,
+        transparent 24px
+      );
+    opacity: 0.15;
+  }
+</style>
+</head>
+<body>
+
+<canvas class="frost-canvas" id="frostCanvas"></canvas>
+<div class="glow-orb"></div>
+<div class="glow-orb glow-orb-2"></div>
+
+<div class="wrapper">
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="logo">frostbyte<span>.</span></div>
+    <div class="nav-status">
+      <div class="status-dot"></div>
+      <span>systems nominal</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-logo" id="heroLogo">frostbyte<span>.</span></div>
+
+    <div class="terminal-block" id="heroTerminal">
+      <div class="terminal-header">
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+        <div class="terminal-dot"></div>
+      </div>
+      <div class="line" id="line1">
+        <span class="prompt">user@frostbyte</span><span class="path">:~$&nbsp;</span><span class="typed-text command" id="cmd1"></span><span class="cursor" id="cursor1"></span>
+      </div>
+      <div class="line" id="line2">
+        <span class="output" id="out2"></span>
+      </div>
+      <div class="line" id="line3">
+        <span class="output" id="out3"></span>
+      </div>
+      <div class="line" id="line4">
+        <span class="output-accent" id="out4"></span>
+      </div>
+      <div class="line" id="line5">
+        <span class="output" id="out5"></span>
+      </div>
+      <div class="line" id="line6">
+        <span class="output-accent" id="out6"></span>
+      </div>
+      <div class="line" id="line7">
+        <span class="prompt">user@frostbyte</span><span class="path">:~$&nbsp;</span><span class="cursor" id="cursor2"></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="sakha-border"></div>
+
+  <!-- SERVICES -->
+  <div class="section-divider" id="servicesDivider">// services</div>
+  <div class="services-block" id="servicesBlock">
+    <div class="services-terminal">
+      <div class="line" style="opacity:1; margin-bottom: 12px;">
+        <span class="prompt">user@frostbyte</span><span class="path">:~/services$&nbsp;</span><span class="command">ls -la</span>
+      </div>
+      <div class="ls-header">
+        total 6 &nbsp;&nbsp; drwxr-xr-x &nbsp; frostbyte &nbsp; staff
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">2.4G</span>
+        <span class="service-date">Dec 24</span>
+        <span class="service-name">neural-core<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-active">● active</span>
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">1.8G</span>
+        <span class="service-date">Dec 22</span>
+        <span class="service-name">data-forge<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-active">● active</span>
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">3.1G</span>
+        <span class="service-date">Dec 20</span>
+        <span class="service-name">cryo-vision<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-new">◆ new</span>
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">890M</span>
+        <span class="service-date">Dec 18</span>
+        <span class="service-name">frost-lang<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-active">● active</span>
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">1.2G</span>
+        <span class="service-date">Dec 15</span>
+        <span class="service-name">permafrost-db<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-beta">◇ beta</span>
+      </div>
+      <div class="service-row" onclick="void(0)">
+        <span class="service-perms">drwxr-xr-x</span>
+        <span class="service-owner">frost</span>
+        <span class="service-size">640M</span>
+        <span class="service-date">Dec 12</span>
+        <span class="service-name">ice-shield<span class="dir-slash">/</span></span>
+        <span class="service-tag tag-active">● active</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sakha-border"></div>
+
+  <!-- METRICS -->
+  <div class="section-divider" id="metricsDivider">// performance</div>
+  <div class="metrics-block" id="metricsBlock">
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Quality</div>
+        <div class="metric-value" id="qualityVal">0<span>%</span></div>
+        <div class="metric-bar-container">
+          <div class="metric-bar" id="qualityBar">[░░░░░░░░░░░░░░░░░░░░]</div>
+          <div class="metric-percent">100%</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Speed</div>
+        <div class="metric-value" id="speedVal">0<span>ms</span></div>
+        <div class="metric-bar-container">
+          <div class="metric-bar" id="speedBar">[░░░░░░░░░░░░░░░░░░░░]</div>
+          <div class="metric-percent">100%</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Uptime</div>
+        <div class="metric-value" id="uptimeVal">0<span>%</span></div>
+        <div class="metric-bar-container">
+          <div class="metric-bar" id="uptimeBar">[░░░░░░░░░░░░░░░░░░░░]</div>
+          <div class="metric-percent">99.9%</div>
+        </div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Throughput</div>
+        <div class="metric-value" id="throughputVal">0<span>k/s</span></div>
+        <div class="metric-bar-container">
+          <div class="metric-bar" id="throughputBar">[░░░░░░░░░░░░░░░░░░░░]</div>
+          <div class="metric-percent">100%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sakha-border"></div>
+
+  <!-- ABOUT -->
+  <div class="section-divider" id="aboutDivider">// about</div>
+  <div class="about-block" id="aboutBlock">
+    <p class="about-text">
+      We build <em>AI infrastructure</em> engineered for the extremes. Our systems run where others freeze — delivering <em>precision models</em>, <em>sub-millisecond inference</em>, and <em>arctic-grade reliability</em> to teams who refuse to compromise.
+    </p>
+  </div>
+
+  <div class="sakha-border"></div>
+
+  <!-- CONTACT -->
+  <div class="section-divider" id="contactDivider">// connect</div>
+  <div class="contact-block" id="contactBlock">
+    <div class="contact-terminal">
+      <div class="contact-line">
+        <span class="prompt">user@frostbyte</span><span class="path">:~$&nbsp;</span><span class="command">cat ./contact</span>
+      </div>
+      <br>
+      <div class="contact-line">
+        <span class="output">&nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="contact-link" data-copy="hello@frostbyte.ai" onclick="copyLink(this)">hello@frostbyte.ai</span>
+      </div>
+      <div class="contact-line">
+        <span class="output">&nbsp;&nbsp;github&nbsp;&nbsp;&nbsp;</span>
+        <span class="contact-link" data-copy="github.com/frostbyte-ai" onclick="copyLink(this)">github.com/frostbyte-ai</span>
+      </div>
+      <div class="contact-line">
+        <span class="output">&nbsp;&nbsp;twitter&nbsp;&nbsp;</span>
+        <span class="contact-link" data-copy="@frostbyte_ai" onclick="copyLink(this)">@frostbyte_ai</span>
+      </div>
+      <div class="contact-line">
+        <span class="output">&nbsp;&nbsp;discord&nbsp;&nbsp;</span>
+        <span class="contact-link" data-copy="discord.gg/frostbyte" onclick="copyLink(this)">discord.gg/frostbyte</span>
+      </div>
+      <br>
+      <div class="contact-line">
+        <span class="prompt">user@frostbyte</span><span class="path">:~$&nbsp;</span><span class="cursor"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer">--- session ended ---</footer>
+
+</div>
+
+<div class="copy-toast" id="copyToast">copied to clipboard</div>
+
+<script>
+  // ─── FROST PARTICLES ───
+  const canvas = document.getElementById('frostCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = Math.random() * 0.2 + 0.05;
+      this.opacity = Math.random() * 0.3 + 0.05;
+      this.fade = Math.random() * 0.005 + 0.001;
+      this.growing = Math.random() > 0.5;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+
+      if (this.growing) {
+        this.opacity += this.fade;
+        if (this.opacity >= 0.35) this.growing = false;
+      } else {
+        this.opacity -= this.fade;
+        if (this.opacity <= 0.02) this.reset();
+      }
+
+      if (this.y > canvas.height + 10 || this.x < -10 || this.x > canvas.width + 10) {
+        this.reset();
+        this.y = -5;
+      }
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(160, 240, 226, ${this.opacity})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 50; i++) {
+    particles.push(new Particle());
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // ─── GSAP ANIMATIONS ───
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Nav
+  gsap.to('#nav', { opacity: 1, duration: 0.8, delay: 0.2 });
+
+  // Hero logo
+  gsap.to('#heroLogo', {
+    opacity: 1,
+    duration: 1.2,
+    delay: 0.5,
+    ease: 'power2.out'
+  });
+
+  // Terminal typing
+  const tl = gsap.timeline({ delay: 1.2 });
+
+  function typeText(element, text, duration) {
+    return gsap.to(element, {
+      duration: duration,
+      text: { value: text },
+      ease: 'none',
+      onUpdate: function() {
+        element.textContent = text.substring(0, Math.floor(this.progress() * text.length));
+      }
+    });
+  }
+
+  // Show lines one by one with typing
+  tl.to('#line1', { opacity: 1, duration: 0.01 })
+    .to('#cmd1', {
+      duration: 1.2,
+      ease: 'steps(20)',
+      onUpdate: function() {
+        const text = './boot --cold-start';
+        const progress = this.progress();
+        document.getElementById('cmd1').textContent = text.substring(0, Math.floor(progress * text.length));
+      }
+    })
+    .to('#cursor1', { opacity: 0, duration: 0.01 })
+    .to('#line2', { opacity: 1, duration: 0.01 }, '+=0.3')
+    .to('#out2', {
+      duration: 0.01,
+      onComplete: () => {
+        document.getElementById('out2').innerHTML = '<span class="output-accent">▸</span> <span class="output">initializing frostbyte kernel v4.2.0</span>';
+      }
+    })
+    .to('#line3', { opacity: 1, duration: 0.01 }, '+=0.4')
+    .to('#out3', {
+      duration: 0.01,
+      onComplete: () => {
+        document.getElementById('out3').innerHTML = '<span class="output-accent">▸</span> <span class="output">loading neural modules</span> <span class="output-accent">[████████████████]</span> <span class="output">done</span>';
+      }
+    })
+    .to('#line4', { opacity: 1, duration: 0.01 }, '+=0.3')
+    .to('#out4', {
+      duration: 0.01,
+      onComplete: () => {
+        document.getElementById('out4').textContent = '▸ all systems operational';
+      }
+    })
+    .to('#line5', { opacity: 1, duration: 0.01 }, '+=0.2')
+    .to('#out5', {
+      duration: 0.01,
+      onComplete: () => {
+        document.getElementById('out5').innerHTML = '<span class="output-accent">▸</span> <span class="output">temperature: </span><span class="output-accent">-47°C</span> <span class="output">· latency: </span><span class="output-accent">0.3ms</span> <span class="output">· nodes: </span><span class="output-accent">2,048</span>';
+      }
+    })
+    .to('#line6', { opacity: 1, duration: 0.01 }, '+=0.3')
+    .to('#out6', {
+      duration: 0.01,
+      onComplete: () => {
+        document.getElementById('out6').innerHTML = '✓ <span class="output-highlight">cold start complete — ready for input</span>';
+      }
+    })
+    .to('#line7', { opacity: 1, duration: 0.01 }, '+=0.3');
+
+  // Services
+  gsap.to('#servicesDivider', {
+    opacity: 1,
+    y: 0,
+    duration: 0.6,
+    scrollTrigger: {
+      trigger: '#servicesDivider',
+      start: 'top 85%'
+    }
+  });
+
+  gsap.to('#servicesBlock', {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: '#servicesBlock',
+      start: 'top 85%'
+    }
+  });
+
+  // Service rows stagger
+  gsap.from('.service-row', {
+    opacity: 0,
+    x: -20,
+    duration: 0.4,
+    stagger: 0.1,
+    scrollTrigger: {
+      trigger: '#servicesBlock',
+      start: 'top 80%'
+    }
+  });
+
+  // Metrics
+  gsap.to('#metricsDivider', {
+    opacity: 1,
+    duration: 0.6,
+    scrollTrigger: { trigger: '#metricsDivider', start: 'top 85%' }
+  });
+
+  gsap.to('#metricsBlock', {
+    opacity: 1,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: '#metricsBlock',
+      start: 'top 85%',
+      onEnter: () => animateMetrics()
+    }
+  });
+
+  function animateMetrics() {
+    // Quality
+    animateBar('qualityBar', 20);
+    animateCounter('qualityVal', 0, 100, '%', 1.5);
+    // Speed
+    animateBar('speedBar', 20);
+    animateCounter('speedVal', 0, 12, 'ms', 1.5);
+    // Uptime
+    animateBar('uptimeBar', 20);
+    animateCounter('uptimeVal', 0, 99.9, '%', 1.5);
+    // Throughput
+    animateBar('throughputBar', 20);
+    animateCounter('throughputVal', 0, 847, 'k/s', 1.5);
+  }
+
+  function animateBar(id, total) {
+    const el = document.getElementById(id);
+    let count = 0;
+    const interval = setInterval(() => {
+      count++;
+      const filled = '█'.repeat(count) + '░'.repeat(total - count);
+      el.textContent = `[${filled}]`;
+      if (count >= total) clearInterval(interval);
+    }, 60);
+  }
+
+  function animateCounter(id, from, to, suffix, duration) {
+    const el = document.getElementById(id);
+    const obj = { val: from };
+    gsap.to(obj, {
+      val: to,
+      duration: duration,
+      ease: 'power2.out',
+      onUpdate: () => {
+        const v = suffix === '%' && to < 100 ? obj.val.toFixed(1) : Math.floor(obj.val);
+        el.innerHTML = `${v}<span>${suffix}</span>`;
+      }
+    });
+  }
+
+  // About
+  gsap.to('#aboutDivider', {
+    opacity: 1, duration: 0.6,
+    scrollTrigger: { trigger: '#aboutDivider', start: 'top 85%' }
+  });
+  gsap.to('#aboutBlock', {
+    opacity: 1, duration: 0.8,
+    scrollTrigger: { trigger: '#aboutBlock', start: 'top 85%' }
+  });
+
+  // Contact
+  gsap.to('#contactDivider', {
+    opacity: 1, duration: 0.6,
+    scrollTrigger: { trigger: '#contactDivider', start: 'top 85%' }
+  });
+  gsap.to('#contactBlock', {
+    opacity: 1, duration: 0.8,
+    scrollTrigger: { trigger: '#contactBlock', start: 'top 85%' }
+  });
+
+  // Footer
+  gsap.to('#footer', {
+    opacity: 0.4, duration: 0.8,
+    scrollTrigger: { trigger: '#footer', start: 'top 90%' }
+  });
+
+  // ─── COPY FUNCTION ───
+  function copyLink(el) {
+    const text = el.getAttribute('data-copy');
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = document.getElementById('copyToast');
+      toast.textContent = `copied: ${text}`;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+  }
+</script>
+
+</body>
+</html>

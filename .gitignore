@@ -1,1 +1,10 @@
 promt.md
+
+# local agent skill installs
+.agents/
+.claude/
+.kiro/
+.pi/
+.qoder/
+.windsurf/
+skills-lock.json

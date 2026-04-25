@@ -476,6 +476,56 @@ ul {
 	gap: 10px;
 }
 
+.hero-strip {
+	margin-top: 22px;
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 12px;
+	max-width: 680px;
+}
+
+.hero-strip-card {
+	position: relative;
+	padding: 18px 20px;
+	border-radius: 24px;
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	background: rgba(255, 255, 255, 0.032);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	overflow: hidden;
+	transition: transform 0.35s var(--ease-smooth), border-color 0.25s ease, background 0.25s ease;
+}
+
+.hero-strip-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--border-accent);
+	background: rgba(255, 255, 255, 0.04);
+}
+
+.hero-strip-label {
+	display: block;
+	margin-bottom: 10px;
+	font-family: var(--font-mono);
+	font-size: 11px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--accent-cyan);
+}
+
+.hero-strip-card strong {
+	display: block;
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: -0.03em;
+	line-height: 1.24;
+}
+
+.hero-strip-card p {
+	margin-top: 8px;
+	color: var(--text-muted);
+	font-size: 0.93rem;
+	line-height: 1.6;
+}
+
 .hero-panel {
 	align-self: stretch;
 }
@@ -546,6 +596,31 @@ ul {
 	height: 1px;
 	background: linear-gradient(90deg, transparent, rgba(143, 220, 207, 0.7), transparent);
 	opacity: 0.55;
+}
+
+.capability-card::after,
+.hero-strip-card::after,
+.pressure-item::after {
+	content: "";
+	position: absolute;
+	inset: -1px;
+	background: radial-gradient(320px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(143, 220, 207, 0.16), transparent 44%);
+	opacity: 0;
+	transition: opacity 0.35s ease;
+	pointer-events: none;
+}
+
+.capability-card:hover::after,
+.hero-strip-card:hover::after,
+.pressure-item:hover::after {
+	opacity: 1;
+}
+
+.capability-card > *,
+.hero-strip-card > *,
+.pressure-item > * {
+	position: relative;
+	z-index: 1;
 }
 
 .system-cell-large {
@@ -654,6 +729,7 @@ ul {
 	color: inherit;
 	text-align: left;
 	cursor: pointer;
+	overflow: hidden;
 	transition: transform 0.45s var(--ease-smooth), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
@@ -726,6 +802,66 @@ ul {
 .capability-link {
 	margin-top: auto;
 	color: var(--accent-strong);
+}
+
+.pressure-layout {
+	margin-top: 34px;
+	display: grid;
+	grid-template-columns: minmax(300px, 0.88fr) minmax(0, 1.12fr);
+	gap: 24px;
+	align-items: start;
+}
+
+.pressure-copy {
+	position: sticky;
+	top: 116px;
+	align-self: start;
+}
+
+.pressure-list {
+	display: grid;
+	gap: 14px;
+}
+
+.pressure-item {
+	position: relative;
+	display: grid;
+	grid-template-columns: 72px 1fr;
+	gap: 18px;
+	padding: 22px 22px 22px 24px;
+	border-radius: 28px;
+	border: 1px solid rgba(255, 255, 255, 0.07);
+	background: linear-gradient(180deg, rgba(18, 24, 28, 0.88), rgba(11, 15, 17, 0.96));
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 44px rgba(2, 5, 6, 0.24);
+	overflow: hidden;
+	transition: transform 0.35s var(--ease-smooth), border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pressure-item:hover {
+	transform: translateX(6px);
+	border-color: var(--border-accent);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 56px rgba(2, 5, 6, 0.32);
+}
+
+.pressure-index {
+	font-family: var(--font-mono);
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--accent-cyan);
+}
+
+.pressure-item h3 {
+	font-size: 1.14rem;
+	font-weight: 600;
+	letter-spacing: -0.03em;
+	line-height: 1.15;
+}
+
+.pressure-item p {
+	margin-top: 8px;
+	color: var(--text-muted);
+	line-height: 1.72;
 }
 
 .workflow-layout {
@@ -1191,13 +1327,18 @@ ul {
 
 	.hero,
 	.cta-panel-inner,
-	.workflow-layout {
+	.workflow-layout,
+	.pressure-layout {
 		grid-template-columns: 1fr;
 	}
 
 	.hero {
 		min-height: auto;
 		padding-top: 26px;
+	}
+
+	.pressure-copy {
+		position: static;
 	}
 
 	.capability-grid {
@@ -1247,7 +1388,8 @@ ul {
 	}
 
 	.system-grid,
-	.capability-grid {
+	.capability-grid,
+	.hero-strip {
 		grid-template-columns: 1fr;
 	}
 
@@ -1275,6 +1417,11 @@ ul {
 		max-width: 100%;
 	}
 
+	.pressure-item {
+		grid-template-columns: 1fr;
+		gap: 10px;
+	}
+
 	.terminal-container {
 		padding-top: 118px;
 	}
@@ -1292,6 +1439,10 @@ ul {
 	.hero-actions {
 		align-items: stretch;
 		flex-direction: column;
+	}
+
+	.hero-strip-card {
+		padding: 16px 18px;
 	}
 
 	.primary-cta {
@@ -1353,6 +1504,11 @@ ul {
 	.shell-card-inner,
 	.capability-card {
 		padding: 22px;
+		border-radius: 22px;
+	}
+
+	.pressure-item {
+		padding: 18px 18px 20px;
 		border-radius: 22px;
 	}
 

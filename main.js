@@ -171,6 +171,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    bindSpotlightEffect('.capability-card, .hero-strip-card, .pressure-item');
+
+    function bindSpotlightEffect(selector) {
+        document.querySelectorAll(selector).forEach((element) => {
+            const updateSpotlight = (event) => {
+                const rect = element.getBoundingClientRect();
+                element.style.setProperty('--spotlight-x', `${event.clientX - rect.left}px`);
+                element.style.setProperty('--spotlight-y', `${event.clientY - rect.top}px`);
+            };
+
+            element.addEventListener('pointerenter', updateSpotlight);
+            element.addEventListener('pointermove', updateSpotlight);
+        });
+    }
+
     function openCapabilityModal(key) {
         const capabilityKey = resolveCapabilityKey(key);
         if (!capabilityKey) return;
@@ -309,12 +324,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 stagger: 0.05,
                 ease: 'power3.out'
             }, '-=0.35')
+            .from('.hero-strip-card', {
+                y: 24,
+                opacity: 0,
+                duration: 0.55,
+                stagger: 0.08,
+                ease: 'power3.out'
+            }, '-=0.25')
             .from('.hero-panel', {
                 y: 42,
                 opacity: 0,
                 duration: 0.9,
                 ease: 'power3.out'
-            }, '-=0.85');
+            }, '-=0.8');
 
         if (!window.ScrollTrigger) return;
 
@@ -341,6 +363,19 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollTrigger: {
                 trigger: '.capability-grid',
                 start: 'top 82%',
+                once: true
+            }
+        });
+
+        gsap.from('.pressure-item', {
+            y: 28,
+            opacity: 0,
+            duration: 0.72,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: '.pressure-list',
+                start: 'top 84%',
                 once: true
             }
         });
@@ -461,6 +496,15 @@ document.addEventListener('DOMContentLoaded', () => {
         addLine('<span class="output-muted">Type \"open &lt;name&gt;\" for details</span>');
     }
 
+    function renderWhenOutput() {
+        addLine('<span class="output-muted">Common entry points</span>');
+        addLine('');
+        addLine('<span class="output">01 → manual work eats team time</span>');
+        addLine('<span class="output">02 → Bitrix, website, and Telegram are disconnected</span>');
+        addLine('<span class="output">03 → redesign needed, but not empty visuals</span>');
+        addLine('<span class="output">04 → AI should automate work, not just decorate pitch decks</span>');
+    }
+
     const commands = {
         help: () => {
             addLine('<span class="output">Available commands:</span>');
@@ -471,6 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
             addLine('<span class="help-line"><span class="help-cmd">open &lt;name&gt;</span><span class="help-desc">open capability details</span></span>');
             addLine('<span class="help-line"><span class="help-cmd">stack</span><span class="help-desc">show build stack</span></span>');
             addLine('<span class="help-line"><span class="help-cmd">process</span><span class="help-desc">show delivery model</span></span>');
+            addLine('<span class="help-line"><span class="help-cmd">when</span><span class="help-desc">show common entry points</span></span>');
             addLine('<span class="help-line"><span class="help-cmd">contact</span><span class="help-desc">show contact info</span></span>');
             addLine('<span class="help-line"><span class="help-cmd">metrics</span><span class="help-desc">show studio profile</span></span>');
             addLine('<span class="help-line"><span class="help-cmd">weather</span><span class="help-desc">current Yakutsk weather</span></span>');
@@ -520,6 +565,12 @@ document.addEventListener('DOMContentLoaded', () => {
             addLine('<span class="output">02 → design architecture, interface, and integrations</span>');
             addLine('<span class="output">03 → build product, automation, and admin tools</span>');
             addLine('<span class="output">04 → launch, support, and scale without chaos</span>');
+        },
+        when: () => {
+            renderWhenOutput();
+        },
+        pain: () => {
+            renderWhenOutput();
         },
         contact: () => {
             addLine('<span class="output-muted">iindev:~/contact$ cat info.txt</span>');

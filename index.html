@@ -1,355 +1,694 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iindev. — AI automation, Bitrix, Telegram bots, TMA</title>
-    <meta name="description" content="iindev — компания разработки. AI-автоматизация, Telegram боты, Mini Apps, сайты на Bitrix, веб-платформы и внутренние системы. От архитектуры до запуска.">
-    <meta name="author" content="iindev">
-    <meta name="robots" content="index, follow">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#090b0d">
-    <link rel="canonical" href="https://iindev-solutions.github.io/iindev-landing/">
-    <meta property="og:title" content="iindev. — AI automation, Bitrix, Telegram bots, TMA">
-    <meta property="og:description" content="Собираем AI-системы, автоматизацию и веб-продукты в одну рабочую систему.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://iindev-solutions.github.io/iindev-landing/">
-    <meta property="og:locale" content="ru_RU">
-    <meta property="og:site_name" content="iindev">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="iindev. — AI automation, Bitrix, Telegram bots, TMA">
-    <meta name="twitter:description" content="AI-автоматизация, Telegram боты, TMA, сайты на Bitrix, веб-платформы и интеграции.">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23090b0d'/%3E%3Ctext x='8' y='40' fill='%238fdccf' font-size='22' font-family='Arial, sans-serif'%3Eiind%3C/text%3E%3C/svg%3E">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="mode-normal">
-    <a class="skip-link" href="#normalContainer">Перейти к контенту</a>
-    <div class="background-pattern" aria-hidden="true"></div>
-    <div class="noise-overlay" aria-hidden="true"></div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>iindev. — AI automation, Bitrix, Telegram bots, TMA</title>
+		<meta
+			name="description"
+			content="iindev — компания разработки. AI-автоматизация, Telegram боты, Mini Apps, сайты на Bitrix, веб-платформы и внутренние системы. От архитектуры до запуска."
+		/>
+		<meta name="author" content="iindev" />
+		<meta name="robots" content="index, follow" />
+		<meta name="color-scheme" content="dark" />
+		<meta name="theme-color" content="#090b0d" />
+		<link
+			rel="canonical"
+			href="https://iindev-solutions.github.io/iindev-landing/"
+		/>
+		<meta
+			property="og:title"
+			content="iindev. — AI automation, Bitrix, Telegram bots, TMA"
+		/>
+		<meta
+			property="og:description"
+			content="Собираем AI-системы, автоматизацию и веб-продукты в одну рабочую систему."
+		/>
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:url"
+			content="https://iindev-solutions.github.io/iindev-landing/"
+		/>
+		<meta property="og:locale" content="ru_RU" />
+		<meta property="og:site_name" content="iindev" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="iindev. — AI automation, Bitrix, Telegram bots, TMA"
+		/>
+		<meta
+			name="twitter:description"
+			content="AI-автоматизация, Telegram боты, TMA, сайты на Bitrix, веб-платформы и интеграции."
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23090b0d'/%3E%3Ctext x='8' y='40' fill='%238fdccf' font-size='22' font-family='Arial, sans-serif'%3Eiind%3C/text%3E%3C/svg%3E"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body class="mode-normal">
+		<a class="skip-link" href="#normalContainer">Перейти к контенту</a>
+		<div class="background-pattern" aria-hidden="true"></div>
+		<div class="noise-overlay" aria-hidden="true"></div>
 
-    <header class="navbar" id="navbar" role="banner">
-        <div class="navbar-inner">
-            <a class="nav-brand" href="#hero" aria-label="iindev — к началу страницы">
-                <span class="nav-brand-accent">iind</span>ev.
-            </a>
+		<header class="navbar" id="navbar" role="banner">
+			<div class="navbar-inner">
+				<a
+					class="nav-brand"
+					href="#hero"
+					aria-label="iindev — к началу страницы"
+				>
+					<span class="nav-brand-accent">iind</span>ev.
+				</a>
 
-            <div class="nav-meta">
-                <span class="meta-pill"><span class="status-dot"></span> AI automation studio</span>
-                <span class="meta-pill nav-weather" id="weatherBadge">
-                    <span class="weather-loader"><span class="loader-dot"></span><span class="loader-dot"></span><span class="loader-dot"></span></span>
-                </span>
-            </div>
+				<div class="nav-meta">
+					<!--<span class="meta-pill"
+						><span class="status-dot"></span> AI automation
+						studio</span
+					>-->
+					<span class="meta-pill nav-weather" id="weatherBadge">
+						<span class="weather-loader"
+							><span class="loader-dot"></span
+							><span class="loader-dot"></span
+							><span class="loader-dot"></span
+						></span>
+					</span>
+				</div>
 
-            <div class="nav-actions">
-                <a class="nav-link" href="https://t.me/iindev" target="_blank" rel="noreferrer">telegram</a>
-                <div class="nav-toggle" id="modeToggle" role="group" aria-label="Режим отображения">
-                    <button class="toggle-option" type="button" data-mode="normal" id="toggleNormal" aria-label="Обычный режим">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-                    </button>
-                    <span class="toggle-slider" id="toggleSlider"></span>
-                    <button class="toggle-option" type="button" data-mode="terminal" id="toggleTerminal" aria-label="Терминал">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
+				<div class="nav-actions">
+					<!--<a class="nav-link" href="https://t.me/iindev" target="_blank" rel="noreferrer">telegram</a>-->
+					<div
+						class="nav-toggle"
+						id="modeToggle"
+						role="group"
+						aria-label="Режим отображения"
+					>
+						<button
+							class="toggle-option"
+							type="button"
+							data-mode="normal"
+							id="toggleNormal"
+							aria-label="Обычный режим"
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.75"
+								aria-hidden="true"
+							>
+								<circle cx="12" cy="12" r="10" />
+								<circle cx="12" cy="12" r="3" />
+							</svg>
+						</button>
+						<span class="toggle-slider" id="toggleSlider"></span>
+						<button
+							class="toggle-option"
+							type="button"
+							data-mode="terminal"
+							id="toggleTerminal"
+							aria-label="Терминал"
+						>
+							<svg
+								width="16"
+								height="16"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.75"
+								aria-hidden="true"
+							>
+								<polyline points="4 17 10 11 4 5" />
+								<line x1="12" y1="19" x2="20" y2="19" />
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</header>
 
-    <main class="normal-container" id="normalContainer">
-        <section class="hero" id="hero">
-            <div class="hero-copy">
-                <p class="eyebrow animate-element">iindev // automation · ai · web</p>
-                <h1 class="hero-title animate-element">
-                    <span class="hero-line">Собираем сложные</span>
-                    <span class="hero-line hero-line-accent">AI-системы,</span>
-                    <span class="hero-line">автоматизацию и веб.</span>
-                </h1>
-                <p class="hero-lead animate-element">iindev — компания разработки, которая превращает хаос в рабочие цифровые системы: AI-автоматизация, Telegram боты, Mini Apps, сайты на Bitrix, веб-платформы, кабинеты и интеграции.</p>
-                <div class="hero-actions animate-element">
-                    <a class="primary-cta" href="https://t.me/iindev" target="_blank" rel="noreferrer">
-                        <span>Запустить проект</span>
-                        <span class="cta-icon">↗</span>
-                    </a>
-                    <a class="secondary-cta" href="#capabilitiesSection">Смотреть экспертизу</a>
-                </div>
-                <ul class="hero-tags animate-element" aria-label="Ключевые направления">
-                    <li>AI automation</li>
-                    <li>Telegram bots</li>
-                    <li>Mini Apps</li>
-                    <li>Bitrix</li>
-                    <li>Web platforms</li>
-                    <li>Integrations</li>
-                </ul>
-                <div class="hero-strip animate-element" aria-label="Что делаем лучше всего">
-                    <article class="hero-strip-card">
-                        <span class="hero-strip-label">automation</span>
-                        <strong>AI-сценарии и внутренние агенты</strong>
-                        <p>Убираем ручную рутину и собираем рабочие процессы в один контур.</p>
-                    </article>
-                    <article class="hero-strip-card">
-                        <span class="hero-strip-label">telegram</span>
-                        <strong>Боты и Mini Apps</strong>
-                        <p>Делаем Telegram рабочей поверхностью для продаж, сервиса и внутренних задач.</p>
-                    </article>
-                    <article class="hero-strip-card">
-                        <span class="hero-strip-label">bitrix</span>
-                        <strong>Сайты и управляемая CMS</strong>
-                        <p>Сильная подача, нормальная структура, интеграции и контроль для бизнеса.</p>
-                    </article>
-                    <article class="hero-strip-card">
-                        <span class="hero-strip-label">systems</span>
-                        <strong>Кабинеты, порталы, платформы</strong>
-                        <p>Собираем интерфейсы и внутренние инструменты, которые реально живут в работе.</p>
-                    </article>
-                </div>
-            </div>
+		<main class="normal-container" id="normalContainer">
+			<section class="hero" id="hero">
+				<div class="hero-copy">
+					<p class="eyebrow animate-element">
+						iindev // automation · ai · web
+					</p>
+					<h1 class="hero-title animate-element">
+						<span class="hero-line">Собираем сложные</span>
+						<span class="hero-line hero-line-accent"
+							>AI-системы,</span
+						>
+						<span class="hero-line">автоматизацию и веб.</span>
+					</h1>
+					<p class="hero-lead animate-element">
+						iindev — компания разработки, которая превращает хаос в
+						рабочие цифровые системы: AI-автоматизация, Telegram
+						боты, Mini Apps, сайты на Bitrix, веб-платформы,
+						кабинеты и интеграции.
+					</p>
+					<div class="hero-actions animate-element">
+						<a
+							class="primary-cta"
+							href="https://t.me/iindev"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<span>Запустить проект</span>
+							<span class="cta-icon">↗</span>
+						</a>
+						<a class="secondary-cta" href="#capabilitiesSection"
+							>Смотреть экспертизу</a
+						>
+					</div>
+					<ul
+						class="hero-tags animate-element"
+						aria-label="Ключевые направления"
+					>
+						<li>AI automation</li>
+						<li>Telegram bots</li>
+						<li>Mini Apps</li>
+						<li>Bitrix</li>
+						<li>Web platforms</li>
+						<li>Integrations</li>
+					</ul>
+					<div
+						class="hero-strip animate-element"
+						aria-label="Что делаем лучше всего"
+					>
+						<article class="hero-strip-card">
+							<span class="hero-strip-label">automation</span>
+							<strong>AI-сценарии и внутренние агенты</strong>
+							<p>
+								Убираем ручную рутину и собираем рабочие
+								процессы в один контур.
+							</p>
+						</article>
+						<article class="hero-strip-card">
+							<span class="hero-strip-label">telegram</span>
+							<strong>Боты и Mini Apps</strong>
+							<p>
+								Делаем Telegram рабочей поверхностью для продаж,
+								сервиса и внутренних задач.
+							</p>
+						</article>
+						<article class="hero-strip-card">
+							<span class="hero-strip-label">bitrix</span>
+							<strong>Сайты и управляемая CMS</strong>
+							<p>
+								Сильная подача, нормальная структура, интеграции
+								и контроль для бизнеса.
+							</p>
+						</article>
+						<article class="hero-strip-card">
+							<span class="hero-strip-label">systems</span>
+							<strong>Кабинеты, порталы, платформы</strong>
+							<p>
+								Собираем интерфейсы и внутренние инструменты,
+								которые реально живут в работе.
+							</p>
+						</article>
+					</div>
+				</div>
 
-            <aside class="hero-panel shell-card animate-element" aria-label="Позиционирование iindev">
-                <div class="shell-card-inner hero-panel-inner">
-                    <div class="hero-panel-head">
-                        <span class="panel-kicker">delivery map</span>
-                        <span class="panel-status"><span class="status-dot"></span> build / automate / ship</span>
-                    </div>
-                    <div class="system-grid">
-                        <article class="system-cell system-cell-large">
-                            <span class="system-label">core</span>
-                            <strong>idea → ux → code → release</strong>
-                            <p>Берём задачу целиком: архитектура, интерфейс, интеграции, запуск и поддержка.</p>
-                        </article>
-                        <article class="system-cell">
-                            <span class="system-label">surfaces</span>
-                            <strong>Bitrix / Web / TMA</strong>
-                            <p>Лендинги, корпсайты, кабинеты, каталоги, сервисы и mini apps.</p>
-                        </article>
-                        <article class="system-cell">
-                            <span class="system-label">automation</span>
-                            <strong>AI / CRM / Bots</strong>
-                            <p>Агенты, воронки, внутренние инструменты, интеграции и сценарии.</p>
-                        </article>
-                    </div>
-                    <div class="hero-console" aria-label="Ключевые принципы">
-                        <div class="console-line"><span>input</span><strong>хаос, ручные процессы, куча сервисов</strong></div>
-                        <div class="console-line"><span>output</span><strong>понятный продукт и рабочая автоматизация</strong></div>
-                        <div class="console-line"><span>mode</span><strong>высокий вкус + сильная инженерия</strong></div>
-                    </div>
-                </div>
-            </aside>
-        </section>
+				<aside
+					class="hero-panel shell-card animate-element"
+					aria-label="Позиционирование iindev"
+				>
+					<div class="shell-card-inner hero-panel-inner">
+						<div class="hero-panel-head">
+							<span class="panel-kicker">delivery map</span>
+							<span class="panel-status"
+								><span class="status-dot"></span> build /
+								automate / ship</span
+							>
+						</div>
+						<div class="system-grid">
+							<article class="system-cell system-cell-large">
+								<span class="system-label">core</span>
+								<strong>idea → ux → code → release</strong>
+								<p>
+									Берём задачу целиком: архитектура,
+									интерфейс, интеграции, запуск и поддержка.
+								</p>
+							</article>
+							<article class="system-cell">
+								<span class="system-label">surfaces</span>
+								<strong>Bitrix / Web / TMA</strong>
+								<p>
+									Лендинги, корпсайты, кабинеты, каталоги,
+									сервисы и mini apps.
+								</p>
+							</article>
+							<article class="system-cell">
+								<span class="system-label">automation</span>
+								<strong>AI / CRM / Bots</strong>
+								<p>
+									Агенты, воронки, внутренние инструменты,
+									интеграции и сценарии.
+								</p>
+							</article>
+						</div>
+						<div
+							class="hero-console"
+							aria-label="Ключевые принципы"
+						>
+							<div class="console-line">
+								<span>input</span
+								><strong
+									>хаос, ручные процессы, куча
+									сервисов</strong
+								>
+							</div>
+							<div class="console-line">
+								<span>output</span
+								><strong
+									>понятный продукт и рабочая
+									автоматизация</strong
+								>
+							</div>
+							<div class="console-line">
+								<span>mode</span
+								><strong
+									>высокий вкус + сильная инженерия</strong
+								>
+							</div>
+						</div>
+					</div>
+				</aside>
+			</section>
 
-        <section class="capabilities-section section-block" id="capabilitiesSection">
-            <div class="section-heading animate-element">
-                <p class="section-kicker">01 // expertise</p>
-                <h2 class="section-title">Не про “сервисы”. Про то, что реально закрываем под ключ.</h2>
-                <p class="section-copy">От первого вайрфрейма до production — заходим в задачу как продуктовая команда. Без шаблонной мишуры, с нормальной архитектурой и ответственностью за результат.</p>
-            </div>
+			<section
+				class="capabilities-section section-block"
+				id="capabilitiesSection"
+			>
+				<div class="section-heading animate-element">
+					<p class="section-kicker">01 // expertise</p>
+					<h2 class="section-title">
+						Не про “сервисы”. Про то, что реально закрываем под
+						ключ.
+					</h2>
+					<p class="section-copy">
+						От первого вайрфрейма до production — заходим в задачу
+						как продуктовая команда. Без шаблонной мишуры, с
+						нормальной архитектурой и ответственностью за результат.
+					</p>
+				</div>
 
-            <div class="capability-grid">
-                <button class="capability-card capability-card--wide animate-element" type="button" data-capability="automation">
-                    <span class="capability-eyebrow">automation</span>
-                    <h3 class="capability-title">AI automation &amp; agents</h3>
-                    <p class="capability-text">Проектируем AI-first сценарии, где рутина уходит в автоматизацию, а команда получает нормальный рабочий контур.</p>
-                    <ul class="capability-list">
-                        <li>сценарии, ассистенты, агенты, квалификация лидов</li>
-                        <li>CRM, API, документы, база знаний, Telegram</li>
-                        <li>не магия ради магии, а измеримый рабочий результат</li>
-                    </ul>
-                    <span class="capability-link">open automation</span>
-                </button>
+				<div class="capability-grid">
+					<button
+						class="capability-card capability-card--wide animate-element"
+						type="button"
+						data-capability="automation"
+					>
+						<span class="capability-eyebrow">automation</span>
+						<h3 class="capability-title">
+							AI automation &amp; agents
+						</h3>
+						<p class="capability-text">
+							Проектируем AI-first сценарии, где рутина уходит в
+							автоматизацию, а команда получает нормальный рабочий
+							контур.
+						</p>
+						<ul class="capability-list">
+							<li>
+								сценарии, ассистенты, агенты, квалификация лидов
+							</li>
+							<li>CRM, API, документы, база знаний, Telegram</li>
+							<li>
+								не магия ради магии, а измеримый рабочий
+								результат
+							</li>
+						</ul>
+						<span class="capability-link">open automation</span>
+					</button>
 
-                <button class="capability-card capability-card--tall animate-element" type="button" data-capability="telegram">
-                    <span class="capability-eyebrow">telegram</span>
-                    <h3 class="capability-title">Telegram bots &amp; Mini Apps</h3>
-                    <p class="capability-text">Боты продаж, поддержки и внутренних процессов. Плюс TMA, когда нужна полноценная логика прямо внутри Telegram.</p>
-                    <ul class="capability-list">
-                        <li>боты, личные кабинеты, onboarding, платежные сценарии</li>
-                        <li>Mini Apps с нормальным UX, а не просто webview</li>
-                        <li>подключение к CRM, оплатам, складу, заявкам и аналитике</li>
-                    </ul>
-                    <span class="capability-link">open telegram</span>
-                </button>
+					<button
+						class="capability-card capability-card--tall animate-element"
+						type="button"
+						data-capability="telegram"
+					>
+						<span class="capability-eyebrow">telegram</span>
+						<h3 class="capability-title">
+							Telegram bots &amp; Mini Apps
+						</h3>
+						<p class="capability-text">
+							Боты продаж, поддержки и внутренних процессов. Плюс
+							TMA, когда нужна полноценная логика прямо внутри
+							Telegram.
+						</p>
+						<ul class="capability-list">
+							<li>
+								боты, личные кабинеты, onboarding, платежные
+								сценарии
+							</li>
+							<li>
+								Mini Apps с нормальным UX, а не просто webview
+							</li>
+							<li>
+								подключение к CRM, оплатам, складу, заявкам и
+								аналитике
+							</li>
+						</ul>
+						<span class="capability-link">open telegram</span>
+					</button>
 
-                <button class="capability-card capability-card--compact animate-element" type="button" data-capability="bitrix">
-                    <span class="capability-eyebrow">bitrix</span>
-                    <h3 class="capability-title">Bitrix &amp; corporate sites</h3>
-                    <p class="capability-text">Лендинги, корпсайты, каталоги и админки, где бизнесу нужна управляемость, скорость обновлений и интеграции.</p>
-                    <span class="capability-link">open bitrix</span>
-                </button>
+					<button
+						class="capability-card capability-card--compact animate-element"
+						type="button"
+						data-capability="bitrix"
+					>
+						<span class="capability-eyebrow">bitrix</span>
+						<h3 class="capability-title">
+							Bitrix &amp; corporate sites
+						</h3>
+						<p class="capability-text">
+							Лендинги, корпсайты, каталоги и админки, где бизнесу
+							нужна управляемость, скорость обновлений и
+							интеграции.
+						</p>
+						<span class="capability-link">open bitrix</span>
+					</button>
 
-                <button class="capability-card capability-card--long animate-element" type="button" data-capability="platforms">
-                    <span class="capability-eyebrow">platforms</span>
-                    <h3 class="capability-title">Web platforms &amp; internal tools</h3>
-                    <p class="capability-text">Делаем интерфейсы, кабинеты, CRM-связки, B2B/B2C платформы и внутренние системы, которые живут дольше одного красивого релиза.</p>
-                    <ul class="capability-list">
-                        <li>личные кабинеты, дашборды, порталы, внутренние панели</li>
-                        <li>интеграции между сайтом, CRM, Telegram и AI-инструментами</li>
-                        <li>запуск, развитие, поддержка и внятный технический фундамент</li>
-                    </ul>
-                    <span class="capability-link">open platforms</span>
-                </button>
-            </div>
-        </section>
+					<button
+						class="capability-card capability-card--long animate-element"
+						type="button"
+						data-capability="platforms"
+					>
+						<span class="capability-eyebrow">platforms</span>
+						<h3 class="capability-title">
+							Web platforms &amp; internal tools
+						</h3>
+						<p class="capability-text">
+							Делаем интерфейсы, кабинеты, CRM-связки, B2B/B2C
+							платформы и внутренние системы, которые живут дольше
+							одного красивого релиза.
+						</p>
+						<ul class="capability-list">
+							<li>
+								личные кабинеты, дашборды, порталы, внутренние
+								панели
+							</li>
+							<li>
+								интеграции между сайтом, CRM, Telegram и
+								AI-инструментами
+							</li>
+							<li>
+								запуск, развитие, поддержка и внятный
+								технический фундамент
+							</li>
+						</ul>
+						<span class="capability-link">open platforms</span>
+					</button>
+				</div>
+			</section>
 
-        <section class="pressure-section section-block" id="pressureSection">
-            <div class="pressure-layout">
-                <div class="section-heading pressure-copy animate-element">
-                    <p class="section-kicker">02 // when teams call us</p>
-                    <h2 class="section-title">Подключаются, когда всё уже работает “как-то”, но расти так больше нельзя.</h2>
-                    <p class="section-copy">Когда воронка размазана по чатам, сайт устарел, Bitrix живёт отдельно, Telegram отдельно, а AI хотят внедрить без цирка и лишнего шума.</p>
-                </div>
+			<section
+				class="pressure-section section-block"
+				id="pressureSection"
+			>
+				<div class="pressure-layout">
+					<div class="section-heading pressure-copy animate-element">
+						<p class="section-kicker">02 // when teams call us</p>
+						<h2 class="section-title">
+							Подключаются, когда всё уже работает “как-то”, но
+							расти так больше нельзя.
+						</h2>
+						<p class="section-copy">
+							Когда воронка размазана по чатам, сайт устарел,
+							Bitrix живёт отдельно, Telegram отдельно, а AI хотят
+							внедрить без цирка и лишнего шума.
+						</p>
+					</div>
 
-                <div class="pressure-list">
-                    <article class="pressure-item animate-element">
-                        <span class="pressure-index">[01]</span>
-                        <div>
-                            <h3>Ручной труд душит скорость</h3>
-                            <p>Менеджеры копируют статусы, собирают заявки руками, держат процессы в голове и теряют время там, где уже должен работать сценарий.</p>
-                        </div>
-                    </article>
-                    <article class="pressure-item animate-element">
-                        <span class="pressure-index">[02]</span>
-                        <div>
-                            <h3>Bitrix, сайт и Telegram не разговаривают друг с другом</h3>
-                            <p>Данные живут кусками, заявки дублируются, а команда не видит единую картину и теряет контроль над потоком.</p>
-                        </div>
-                    </article>
-                    <article class="pressure-item animate-element">
-                        <span class="pressure-index">[03]</span>
-                        <div>
-                            <h3>Нужен редизайн, но не хочется снова собирать красивую пустоту</h3>
-                            <p>Пересобираем не только внешний слой, но и логику: структура, сценарии, интеграции, админка, точки роста.</p>
-                        </div>
-                    </article>
-                    <article class="pressure-item animate-element">
-                        <span class="pressure-index">[04]</span>
-                        <div>
-                            <h3>AI нужен в деле, а не как очередной модный ярлык</h3>
-                            <p>Смотрим, где автоматизация реально окупается: лиды, поддержка, документы, база знаний, внутренние операции и сервисные цепочки.</p>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
+					<div class="pressure-list">
+						<article class="pressure-item animate-element">
+							<span class="pressure-index">[01]</span>
+							<div>
+								<h3>Ручной труд душит скорость</h3>
+								<p>
+									Менеджеры копируют статусы, собирают заявки
+									руками, держат процессы в голове и теряют
+									время там, где уже должен работать сценарий.
+								</p>
+							</div>
+						</article>
+						<article class="pressure-item animate-element">
+							<span class="pressure-index">[02]</span>
+							<div>
+								<h3>
+									Bitrix, сайт и Telegram не разговаривают
+									друг с другом
+								</h3>
+								<p>
+									Данные живут кусками, заявки дублируются, а
+									команда не видит единую картину и теряет
+									контроль над потоком.
+								</p>
+							</div>
+						</article>
+						<article class="pressure-item animate-element">
+							<span class="pressure-index">[03]</span>
+							<div>
+								<h3>
+									Нужен редизайн, но не хочется снова собирать
+									красивую пустоту
+								</h3>
+								<p>
+									Пересобираем не только внешний слой, но и
+									логику: структура, сценарии, интеграции,
+									админка, точки роста.
+								</p>
+							</div>
+						</article>
+						<article class="pressure-item animate-element">
+							<span class="pressure-index">[04]</span>
+							<div>
+								<h3>
+									AI нужен в деле, а не как очередной модный
+									ярлык
+								</h3>
+								<p>
+									Смотрим, где автоматизация реально
+									окупается: лиды, поддержка, документы, база
+									знаний, внутренние операции и сервисные
+									цепочки.
+								</p>
+							</div>
+						</article>
+					</div>
+				</div>
+			</section>
 
-        <section class="workflow-section section-block" id="workflowSection">
-            <div class="section-heading animate-element">
-                <p class="section-kicker">03 // operating mode</p>
-                <h2 class="section-title">Думаем как продуктовая команда. Делаем как инженерная.</h2>
-                <p class="section-copy">Нам можно приносить идею, беспорядок в процессах, недоделанный MVP или задачу на полный цикл. Разберём, спроектируем, соберём и доведём до живого запуска.</p>
-            </div>
+			<section
+				class="workflow-section section-block"
+				id="workflowSection"
+			>
+				<div class="section-heading animate-element">
+					<p class="section-kicker">03 // operating mode</p>
+					<h2 class="section-title">
+						Думаем как продуктовая команда. Делаем как инженерная.
+					</h2>
+					<p class="section-copy">
+						Нам можно приносить идею, беспорядок в процессах,
+						недоделанный MVP или задачу на полный цикл. Разберём,
+						спроектируем, соберём и доведём до живого запуска.
+					</p>
+				</div>
 
-            <div class="workflow-layout">
-                <article class="workflow-manifesto shell-card animate-element">
-                    <div class="shell-card-inner manifesto-inner">
-                        <p class="manifesto-copy">Нам не нужен “ещё один сайт”. Нам нужна система, которая помогает бизнесу продавать, автоматизировать и масштабироваться.</p>
-                        <div class="manifesto-tags">
-                            <span>research first</span>
-                            <span>clean delivery</span>
-                            <span>strong engineering</span>
-                            <span>taste matters</span>
-                        </div>
-                    </div>
-                </article>
+				<div class="workflow-layout">
+					<article
+						class="workflow-manifesto shell-card animate-element"
+					>
+						<div class="shell-card-inner manifesto-inner">
+							<p class="manifesto-copy">
+								Нам не нужен “ещё один сайт”. Нам нужна система,
+								которая помогает бизнесу продавать,
+								автоматизировать и масштабироваться.
+							</p>
+							<div class="manifesto-tags">
+								<span>research first</span>
+								<span>clean delivery</span>
+								<span>strong engineering</span>
+								<span>taste matters</span>
+							</div>
+						</div>
+					</article>
 
-                <div class="workflow-shell shell-card animate-element">
-                    <div class="shell-card-inner workflow-steps">
-                        <article class="workflow-step">
-                            <span class="workflow-number">01</span>
-                            <div>
-                                <h3>Диагностика</h3>
-                                <p>Смотрим бизнес-процесс, узкие места, ручной труд, текущие сервисы и ограничения.</p>
-                            </div>
-                        </article>
-                        <article class="workflow-step">
-                            <span class="workflow-number">02</span>
-                            <div>
-                                <h3>Архитектура и UX</h3>
-                                <p>Собираем структуру, сценарии, прототипы, интерфейс и логику интеграций до того, как писать код.</p>
-                            </div>
-                        </article>
-                        <article class="workflow-step">
-                            <span class="workflow-number">03</span>
-                            <div>
-                                <h3>Разработка и интеграции</h3>
-                                <p>Делаем фронт, бэк, Bitrix, Telegram, TMA, автоматизацию и связки между всем этим.</p>
-                            </div>
-                        </article>
-                        <article class="workflow-step">
-                            <span class="workflow-number">04</span>
-                            <div>
-                                <h3>Запуск и развитие</h3>
-                                <p>Деплой, аналитика, поддержка, новые сценарии и масштабирование без ощущения, что проект собран на изоленте.</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
+					<div class="workflow-shell shell-card animate-element">
+						<div class="shell-card-inner workflow-steps">
+							<article class="workflow-step">
+								<span class="workflow-number">01</span>
+								<div>
+									<h3>Диагностика</h3>
+									<p>
+										Смотрим бизнес-процесс, узкие места,
+										ручной труд, текущие сервисы и
+										ограничения.
+									</p>
+								</div>
+							</article>
+							<article class="workflow-step">
+								<span class="workflow-number">02</span>
+								<div>
+									<h3>Архитектура и UX</h3>
+									<p>
+										Собираем структуру, сценарии, прототипы,
+										интерфейс и логику интеграций до того,
+										как писать код.
+									</p>
+								</div>
+							</article>
+							<article class="workflow-step">
+								<span class="workflow-number">03</span>
+								<div>
+									<h3>Разработка и интеграции</h3>
+									<p>
+										Делаем фронт, бэк, Bitrix, Telegram,
+										TMA, автоматизацию и связки между всем
+										этим.
+									</p>
+								</div>
+							</article>
+							<article class="workflow-step">
+								<span class="workflow-number">04</span>
+								<div>
+									<h3>Запуск и развитие</h3>
+									<p>
+										Деплой, аналитика, поддержка, новые
+										сценарии и масштабирование без ощущения,
+										что проект собран на изоленте.
+									</p>
+								</div>
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
 
-        <section class="connect-section section-block" id="contactSection">
-            <div class="cta-panel shell-card animate-element">
-                <div class="shell-card-inner cta-panel-inner">
-                    <div class="cta-copy">
-                        <p class="section-kicker">04 // connect</p>
-                        <h2 class="cta-title">Если нужен не подрядчик, а команда, которая вывезет — пишите.</h2>
-                        <p class="cta-text">Быстрее всего отвечаем в Telegram. Можно приходить с идеей, хаосом, брифом, MVP или задачей на полный редизайн и сборку продукта.</p>
-                    </div>
+			<section class="connect-section section-block" id="contactSection">
+				<div class="cta-panel shell-card animate-element">
+					<div class="shell-card-inner cta-panel-inner">
+						<div class="cta-copy">
+							<p class="section-kicker">04 // connect</p>
+							<h2 class="cta-title">
+								Если нужен не подрядчик, а команда, которая
+								вывезет — пишите.
+							</h2>
+							<p class="cta-text">
+								Быстрее всего отвечаем в Telegram. Можно
+								приходить с идеей, хаосом, брифом, MVP или
+								задачей на полный редизайн и сборку продукта.
+							</p>
+						</div>
 
-                    <div class="contacts-terminal">
-                        <div class="contact-line">
-                            <span class="contact-label">telegram</span>
-                            <a class="contact-value" href="https://t.me/iindev" target="_blank" rel="noreferrer" data-copy="@iindev">@iindev</a>
-                        </div>
-                        <div class="contact-line">
-                            <span class="contact-label">email</span>
-                            <a class="contact-value" href="mailto:iindev@tuta.io" data-copy="iindev@tuta.io">iindev@tuta.io</a>
-                        </div>
-                        <div class="contact-note">Telegram отвечает быстрее. Почта — для подробных вводных и файлов.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+						<div class="contacts-terminal">
+							<div class="contact-line">
+								<span class="contact-label">telegram</span>
+								<a
+									class="contact-value"
+									href="https://t.me/iindev"
+									target="_blank"
+									rel="noreferrer"
+									data-copy="@iindev"
+									>@iindev</a
+								>
+							</div>
+							<div class="contact-line">
+								<span class="contact-label">email</span>
+								<a
+									class="contact-value"
+									href="mailto:iindev@tuta.io"
+									data-copy="iindev@tuta.io"
+									>iindev@tuta.io</a
+								>
+							</div>
+							<div class="contact-note">
+								Telegram отвечает быстрее. Почта — для подробных
+								вводных и файлов.
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 
-        <footer class="site-footer">
-            <span>iindev // yakutsk → worldwide</span>
-            <a href="https://t.me/iindev" target="_blank" rel="noreferrer">telegram</a>
-            <a href="mailto:iindev@tuta.io">email</a>
-        </footer>
-    </main>
+			<footer class="site-footer">
+				<span>iindev // yakutsk → worldwide</span>
+				<a href="https://t.me/iindev" target="_blank" rel="noreferrer"
+					>telegram</a
+				>
+				<a href="mailto:iindev@tuta.io">email</a>
+			</footer>
+		</main>
 
-    <div class="terminal-container" id="terminalContainer" aria-live="polite">
-        <div class="terminal-output" id="terminalOutput"></div>
-        <div class="terminal-input-line" id="inputLine">
-            <span class="prompt" id="promptText">operator@iindev:~$</span>
-            <div class="input-wrapper">
-                <span class="terminal-input-display" id="inputDisplay"></span>
-                <span class="cursor-blink">_</span>
-                <input type="text" class="terminal-input" id="terminalInput" autocomplete="off" spellcheck="false" aria-label="Командная строка iindev">
-            </div>
-        </div>
-    </div>
+		<div
+			class="terminal-container"
+			id="terminalContainer"
+			aria-live="polite"
+		>
+			<div class="terminal-output" id="terminalOutput"></div>
+			<div class="terminal-input-line" id="inputLine">
+				<span class="prompt" id="promptText">operator@iindev:~$</span>
+				<div class="input-wrapper">
+					<span
+						class="terminal-input-display"
+						id="inputDisplay"
+					></span>
+					<span class="cursor-blink">_</span>
+					<input
+						type="text"
+						class="terminal-input"
+						id="terminalInput"
+						autocomplete="off"
+						spellcheck="false"
+						aria-label="Командная строка iindev"
+					/>
+				</div>
+			</div>
+		</div>
 
-    <div class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <span class="modal-kicker" id="modalLabel"></span>
-                    <h3 class="modal-title" id="modalTitle"></h3>
-                </div>
-                <button class="modal-close-button" id="modalCloseButton" type="button" aria-label="Закрыть окно">×</button>
-            </div>
-            <p class="modal-lead" id="modalLead"></p>
-            <ul class="modal-list" id="modalList"></ul>
-            <div class="modal-close-hint">press ESC to close</div>
-        </div>
-    </div>
+		<div
+			class="detail-modal"
+			id="detailModal"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="modalTitle"
+		>
+			<div class="modal-content">
+				<div class="modal-header">
+					<div>
+						<span class="modal-kicker" id="modalLabel"></span>
+						<h3 class="modal-title" id="modalTitle"></h3>
+					</div>
+					<button
+						class="modal-close-button"
+						id="modalCloseButton"
+						type="button"
+						aria-label="Закрыть окно"
+					>
+						×
+					</button>
+				</div>
+				<p class="modal-lead" id="modalLead"></p>
+				<ul class="modal-list" id="modalList"></ul>
+				<div class="modal-close-hint">press ESC to close</div>
+			</div>
+		</div>
 
-    <div class="copy-toast" id="copyToast" role="status" aria-live="polite">copied to clipboard</div>
+		<div class="copy-toast" id="copyToast" role="status" aria-live="polite">
+			copied to clipboard
+		</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="main.js"></script>
-</body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+		<script src="main.js"></script>
+	</body>
 </html>

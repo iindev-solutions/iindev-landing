@@ -124,9 +124,21 @@ ul {
 .background-pattern {
 	z-index: 0;
 	background:
-		radial-gradient(circle at 12% 14%, rgba(143, 220, 207, 0.16), transparent 28%),
-		radial-gradient(circle at 86% 10%, rgba(143, 220, 207, 0.08), transparent 32%),
-		radial-gradient(circle at 52% 72%, rgba(143, 220, 207, 0.06), transparent 34%),
+		radial-gradient(
+			circle at 12% 14%,
+			rgba(143, 220, 207, 0.16),
+			transparent 28%
+		),
+		radial-gradient(
+			circle at 86% 10%,
+			rgba(143, 220, 207, 0.08),
+			transparent 32%
+		),
+		radial-gradient(
+			circle at 52% 72%,
+			rgba(143, 220, 207, 0.06),
+			transparent 34%
+		),
 		linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 26%),
 		var(--bg-absolute);
 }
@@ -147,15 +159,27 @@ ul {
 }
 
 .background-pattern::after {
-	background: linear-gradient(180deg, rgba(9, 11, 13, 0.05), rgba(9, 11, 13, 0.8) 80%);
+	background: linear-gradient(
+		180deg,
+		rgba(9, 11, 13, 0.05),
+		rgba(9, 11, 13, 0.8) 80%
+	);
 }
 
 .noise-overlay {
 	z-index: 1;
 	opacity: 0.06;
 	background-image:
-		repeating-radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.8) 0 1px, transparent 1px 4px),
-		repeating-radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.45) 0 1px, transparent 1px 5px);
+		repeating-radial-gradient(
+			circle at 0 0,
+			rgba(255, 255, 255, 0.8) 0 1px,
+			transparent 1px 4px
+		),
+		repeating-radial-gradient(
+			circle at 100% 100%,
+			rgba(255, 255, 255, 0.45) 0 1px,
+			transparent 1px 5px
+		);
 	background-size: 180px 180px;
 	mix-blend-mode: soft-light;
 }
@@ -302,7 +326,9 @@ ul {
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--text-muted);
-	transition: color 0.25s ease, transform 0.25s var(--ease-smooth);
+	transition:
+		color 0.25s ease,
+		transform 0.25s var(--ease-smooth);
 }
 
 .nav-link:hover {
@@ -331,7 +357,9 @@ ul {
 	border-radius: 999px;
 	color: var(--text-dim);
 	cursor: pointer;
-	transition: color 0.25s ease, transform 0.25s var(--ease-smooth);
+	transition:
+		color 0.25s ease,
+		transform 0.25s var(--ease-smooth);
 }
 
 .toggle-option:hover {
@@ -383,7 +411,7 @@ ul {
 
 .hero-title {
 	margin-top: 18px;
-	font-size: clamp(3.6rem, 8vw, 7.2rem);
+	font-size: clamp(3.6rem, 8vw, 6rem);
 	font-weight: 700;
 	letter-spacing: -0.08em;
 	line-height: 0.92;
@@ -417,7 +445,11 @@ ul {
 
 .primary-cta,
 .secondary-cta {
-	transition: transform 0.35s var(--ease-smooth), color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+	transition:
+		transform 0.35s var(--ease-smooth),
+		color 0.25s ease,
+		background 0.25s ease,
+		border-color 0.25s ease;
 }
 
 .primary-cta {
@@ -451,7 +483,9 @@ ul {
 	background: rgba(9, 11, 13, 0.68);
 	color: var(--accent-strong);
 	font-size: 1rem;
-	transition: transform 0.35s var(--ease-smooth), background 0.25s ease;
+	transition:
+		transform 0.35s var(--ease-smooth),
+		background 0.25s ease;
 }
 
 .primary-cta:hover .cta-icon {
@@ -492,7 +526,10 @@ ul {
 	background: rgba(255, 255, 255, 0.032);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 	overflow: hidden;
-	transition: transform 0.35s var(--ease-smooth), border-color 0.25s ease, background 0.25s ease;
+	transition:
+		transform 0.35s var(--ease-smooth),
+		border-color 0.25s ease,
+		background 0.25s ease;
 }
 
 .hero-strip-card:hover {
@@ -536,6 +573,7 @@ ul {
 	background: rgba(255, 255, 255, 0.03);
 	border: 1px solid rgba(255, 255, 255, 0.06);
 	box-shadow: var(--shadow-soft);
+	height: fit-content;
 }
 
 .shell-card-inner {
@@ -543,7 +581,11 @@ ul {
 	padding: 28px;
 	border-radius: 26px;
 	border: 1px solid rgba(255, 255, 255, 0.05);
-	background: linear-gradient(180deg, rgba(18, 24, 28, 0.96), rgba(12, 16, 18, 0.98));
+	background: linear-gradient(
+		180deg,
+		rgba(18, 24, 28, 0.96),
+		rgba(12, 16, 18, 0.98)
+	);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
@@ -594,7 +636,12 @@ ul {
 	right: 18px;
 	top: 0;
 	height: 1px;
-	background: linear-gradient(90deg, transparent, rgba(143, 220, 207, 0.7), transparent);
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(143, 220, 207, 0.7),
+		transparent
+	);
 	opacity: 0.55;
 }
 
@@ -604,7 +651,11 @@ ul {
 	content: "";
 	position: absolute;
 	inset: -1px;
-	background: radial-gradient(320px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(143, 220, 207, 0.16), transparent 44%);
+	background: radial-gradient(
+		320px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+		rgba(143, 220, 207, 0.16),
+		transparent 44%
+	);
 	opacity: 0;
 	transition: opacity 0.35s ease;
 	pointer-events: none;
@@ -691,7 +742,7 @@ ul {
 .section-title,
 .cta-title {
 	margin-top: 18px;
-	font-size: clamp(2.1rem, 4.8vw, 4.3rem);
+	font-size: clamp(2.1rem, 4.8vw, 3.3rem);
 	font-weight: 700;
 	letter-spacing: -0.06em;
 	line-height: 0.95;
@@ -724,19 +775,31 @@ ul {
 	padding: 30px;
 	border-radius: 30px;
 	border: 1px solid rgba(255, 255, 255, 0.07);
-	background: linear-gradient(180deg, rgba(18, 24, 28, 0.92), rgba(12, 16, 18, 0.98));
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 22px 56px rgba(3, 6, 8, 0.3);
+	background: linear-gradient(
+		180deg,
+		rgba(18, 24, 28, 0.92),
+		rgba(12, 16, 18, 0.98)
+	);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.06),
+		0 22px 56px rgba(3, 6, 8, 0.3);
 	color: inherit;
 	text-align: left;
 	cursor: pointer;
 	overflow: hidden;
-	transition: transform 0.45s var(--ease-smooth), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+	transition:
+		transform 0.45s var(--ease-smooth),
+		border-color 0.25s ease,
+		box-shadow 0.25s ease,
+		background 0.25s ease;
 }
 
 .capability-card:hover {
 	transform: translateY(-6px);
 	border-color: var(--border-accent);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 28px 70px rgba(2, 5, 6, 0.42);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.08),
+		0 28px 70px rgba(2, 5, 6, 0.42);
 }
 
 .capability-card:active {
@@ -831,16 +894,27 @@ ul {
 	padding: 22px 22px 22px 24px;
 	border-radius: 28px;
 	border: 1px solid rgba(255, 255, 255, 0.07);
-	background: linear-gradient(180deg, rgba(18, 24, 28, 0.88), rgba(11, 15, 17, 0.96));
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 44px rgba(2, 5, 6, 0.24);
+	background: linear-gradient(
+		180deg,
+		rgba(18, 24, 28, 0.88),
+		rgba(11, 15, 17, 0.96)
+	);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.05),
+		0 18px 44px rgba(2, 5, 6, 0.24);
 	overflow: hidden;
-	transition: transform 0.35s var(--ease-smooth), border-color 0.25s ease, box-shadow 0.25s ease;
+	transition:
+		transform 0.35s var(--ease-smooth),
+		border-color 0.25s ease,
+		box-shadow 0.25s ease;
 }
 
 .pressure-item:hover {
 	transform: translateX(6px);
 	border-color: var(--border-accent);
-	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 24px 56px rgba(2, 5, 6, 0.32);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.06),
+		0 24px 56px rgba(2, 5, 6, 0.32);
 }
 
 .pressure-index {
@@ -975,7 +1049,9 @@ ul {
 	font-weight: 500;
 	font-size: 1rem;
 	color: var(--accent-strong);
-	transition: color 0.25s ease, transform 0.25s var(--ease-smooth);
+	transition:
+		color 0.25s ease,
+		transform 0.25s var(--ease-smooth);
 }
 
 .contact-value:hover {
@@ -1026,7 +1102,9 @@ ul {
 	letter-spacing: 0.04em;
 	opacity: 0;
 	pointer-events: none;
-	transition: opacity 0.25s ease, transform 0.25s var(--ease-smooth);
+	transition:
+		opacity 0.25s ease,
+		transform 0.25s var(--ease-smooth);
 	z-index: 35;
 }
 
@@ -1096,7 +1174,9 @@ ul {
 	align-items: baseline;
 	gap: 8px;
 	cursor: pointer;
-	transition: transform 0.25s var(--ease-smooth), color 0.25s ease;
+	transition:
+		transform 0.25s var(--ease-smooth),
+		color 0.25s ease;
 }
 
 .service-item:hover,
@@ -1185,7 +1265,12 @@ ul {
 	bottom: 8px;
 	padding: 16px 0;
 	border-top: 1px solid rgba(255, 255, 255, 0.06);
-	background: linear-gradient(180deg, rgba(9, 11, 13, 0), rgba(9, 11, 13, 0.92) 24%, rgba(9, 11, 13, 1));
+	background: linear-gradient(
+		180deg,
+		rgba(9, 11, 13, 0),
+		rgba(9, 11, 13, 0.92) 24%,
+		rgba(9, 11, 13, 1)
+	);
 }
 
 .input-wrapper {
@@ -1291,7 +1376,10 @@ ul {
 	color: var(--text-muted);
 	font-size: 1.4rem;
 	cursor: pointer;
-	transition: transform 0.25s var(--ease-smooth), color 0.25s ease, border-color 0.25s ease;
+	transition:
+		transform 0.25s var(--ease-smooth),
+		color 0.25s ease,
+		border-color 0.25s ease;
 }
 
 .modal-close-button:hover {
